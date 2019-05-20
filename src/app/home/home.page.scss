@@ -1,0 +1,22 @@
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+ion-content.background{
+--background: url('../../assets/img/background.jpg') 0 0/100% 100% no-repeat;
+}
+
+ion-button.btnTamPadrao {
+  width: 100px;
+}
+
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid blue;
+  border-radius: 4px;
+  color: black;
+}
