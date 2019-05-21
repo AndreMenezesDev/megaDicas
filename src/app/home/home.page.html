@@ -11,31 +11,49 @@
 <ion-content class="background">
   <ion-card class="welcome-card">
     <ion-img src="/assets/shapes.svg"></ion-img>
-    <ion-card-header>
+    <ion-card-header style="padding-bottom: 0px">
       <ion-card-title style="color: white;">
         <h2>
           Sua chance na MegaSena ficou mais fácil!
         </h2>
       </ion-card-title>
       <ion-card-subtitle>
-        <p>Com o MegaDicas você poderá saber se seu jogo tem grandes chances de ser sorteado comparando com todos os outros
+        <p>Com o MegaDicas você poderá saber se seu jogo tem grandes chances de ser sorteado comparando com todos os
+          outros
           sorteios anteriores além de outras informações especiais.
         </p>
-        </ion-card-subtitle>
+      </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content style="color: rgb(200, 240, 154)">
+    <ion-card-content style="color: rgb(200, 240, 154); padding-top: 0px;">
       <div class="row" style="text-align: center">
         <ion-label color="primary">
           <h4>
             Descubra se tem boas chances<br>colocando seu jogo aqui
           </h4>
         </ion-label>
-        <input name="codigo" mask-number [mask]="'99-99-99-99-99-99'" name="numerosname" [(ngModel)]="objeto.codigo" [maskkOutput]="true" style="color: black" text-center/>
+        <input name="codigo" mask-number [mask]="'99-99-99-99-99-99'" name="numerosname" [(ngModel)]="objeto.codigo"
+          [maskkOutput]="true" style="color: black" text-center />
       </div>
-      <div class="row" style="text-align: center">
-          <ion-button color="primary" size="small" class="btnTamPadrao" (click)="verificarJogo()"> Mega Sena </ion-button>
+
+      <!-- <div style="text-align: center; width: 100%"> -->
+        <div class="row">
+          <div class="col-lg-12">
+          <ion-button color="primary" size="small" class="float-left" (click)="verificarJogoMais()"
+            style="font-size: x-small;width: 130px; float: left;">
+            MegaSena<br>
+            Nº Mais sorteados
+          </ion-button>
+          
+          <ion-button color="primary" size="small" class="float-right" (click)="verificarJogoMenos()"
+            style="font-size: x-small;width: 130px; float: right">
+            MegaSena<br>
+            Nº Menos sorteados
+          </ion-button>
         </div>
+      </div>
+
+
     </ion-card-content>
   </ion-card>
-  
+
 </ion-content>
