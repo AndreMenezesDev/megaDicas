@@ -4,24 +4,39 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Análise de Jogo
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content class="background">
+  <ion-card class="welcome-card">
+  <ion-card-header style="padding: 35% 0px 0px 0px;">
+      <!-- <ion-card-title>
+        <h2 class="header">
+          Sua chance na MegaSena ficou mais fácil!
+        </h2>
+      </ion-card-title> -->
+      <h6>
+        <p class="header">
+          INFORME AS SEIS DEZENAS
+        </p>
+      </h6>
+    </ion-card-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
+    <ion-card-content style="padding-top: 15%;" class="flex-container flex-column-center">
+      <div class="flex-container">        
+        <input name="codigo" mask-number [mask]="'99-99-99-99-99-99'" name="numerosname" [(ngModel)]="objeto.codigo"
+          [maskkOutput]="true" style="color: black" text-center />
       </div>
-    </ion-item>
-  </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
+      <ion-button color="primary" class="margem-compact" size="small" shape="round" style="text-transform: uppercase;" (click)="analisarJogo()">
+        Analisar
+      </ion-button>
+    </ion-card-content>
+    
+
+
+
+
+  </ion-card>
+
 </ion-content>

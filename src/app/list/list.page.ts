@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConcursosService } from 'src/services/concursos.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -6,34 +8,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['list.page.scss']
 })
 export class ListPage implements OnInit {
-  private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+
+  objeto: any;
+ 
+  constructor(
+    public alertController: AlertController,
+    private concursosService: ConcursosService  
+  ) {
   }
 
-  ngOnInit() {
+  ngOnInit() {    
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
+  
+
+  analisarJogo(){
+   
+    var jogo = this.objeto.codigo.split("-");
+
+    this.concursosService.top10Mais().subscribe((result: any) => {        
+            
+      });
+
+
+  }
+
+  async templateAlerta(objeto: any){
+    var alert = await this.alertController.create({
+      header: 'Sua Chance!',
+      subHeader: 'Resultado',
+      message: 'você tem '+objeto.result+" de ganhar.",
+      buttons: ['OK']
+
+    })
+
+    alert.present();
+  }
+
+
 }

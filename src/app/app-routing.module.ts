@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   {
-    path: 'list',
+    path: 'analisejogo',
     loadChildren: './list/list.module#ListPageModule'
   }
 ];

@@ -1,0 +1,84 @@
+Sub Copiararquivo()
+
+'Passo 1: Declarações.
+Dim wsOrigem As Worksheet
+Dim wsDestino As Worksheet
+Dim wbDestino As Workbook
+Dim contador As String
+Dim varCont As Integer
+Dim variavelCont As Integer
+
+
+
+arquivoContador = "c:\wamp\contador.txt"
+
+Open arquivoContador For Input As #1
+
+Do Until EOF(1)
+    Line Input #1, textline
+    Text = Text & textline
+Loop
+
+Close #1
+
+varCont = InStr(Text, "posicao")
+
+variavelCont = Mid(Text, varCont + 9, 1)
+
+contador = 2159 + variavelCont
+
+'Passo 2: Especifica o intervalo que deseja excluir os dados na planilha de destino. Neste caso está sendo excluído todos os dados da planilha, exceto a primeira linha.
+range("A1:CU100000").ClearContents
+
+'Passo 3: Especifica o caminho do arquivo de origem.
+Workbooks.Open Filename:=("c:\Users\andre\Downloads\dadosSorteio.xlsx")
+
+'Passo 4: Especifica o nome e a aba do arquivo de origem, que deseja copiar os dados.
+Set wsOrigem = Application.Workbooks("dadosSorteio.xlsx").Worksheets("mega_sena_www.asloterias.com.br")
+
+' Passo 5: Especifica a aba no arquivo de destino, que deseja colar os dados.
+'Set wbDestino = Workbooks.Add
+
+'Set wsDestino = ThisWorkbook.Sheets("mega_sena_www.asloterias.com.br")
+
+'Passo 6: Realiza o procedimento de copiar e colar os dados, no intervalo que desejar. Neste caso está sendo copiado todos os dados da planilha, exceto a primeira linha.
+With wsOrigem
+'Range("A8:CU100000").Copy Destination:=wbDestino.Worksheets("Planilha1").Range("A1:CU100000")
+range("A8:H" + contador).Select
+    range("A9").Activate
+    Selection.Copy
+    Set wbDestino = Workbooks.Add
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Application.CutCopyMode = False
+    
+End With
+
+Workbooks("dadosSorteio.xlsx").Close
+
+'With wsDestino
+'Range("A1").Select
+'ActiveSheet.ListObjects.Add(xlSrcRange, Range("$A$1:$H$2153"), , xlYes).Name = _
+'"Tabela1"
+'Range("Tabela1[#All]").Select
+'End With
+
+With wbDestino
+    
+    Application.DisplayAlerts = False
+    ActiveWorkbook.SaveAs Filename:="C:\wamp\DadosSorteio.csv", FileFormat:=xlCSVWindows, CreateBackup:=False, Local:=True
+    ActiveWorkbook.Close _
+    SaveChanges:=False
+    
+
+Application.Quit
+End With
+
+'Workbooks("macro.xlsm").Close SaveChanges:=True
+
+'Passo 7: Especifica o nome da planilha de origem, para salvar e fechar.
+'Workbooks("macro.xlsm").Close SaveChanges:=True
+
+
+
+End Sub

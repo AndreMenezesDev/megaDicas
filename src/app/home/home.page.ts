@@ -1,22 +1,55 @@
 import { Component } from '@angular/core';
-import { forEach } from '@angular/router/src/utils/collection';
-import { AngularDelegate, AlertController } from '@ionic/angular';
+import { AlertController} from '@ionic/angular';
+import { ConcursosService } from 'src/services/concursos.service';
+import { Toplistmodel } from 'src/model/toplistmodel.model';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
 })
 export class HomePage {
 
-  constructor(public alertController: AlertController){}
-
+  bd: any={};
   objeto: any={};
 
-  bd = ["01","02","03","05","04","09"];
   frequencia: number = 0;
   indice: number=0;
   freq: any [];
+  toplist: any;
+  showTopListMais: boolean = false;
+  showTopListMenos: boolean = false;
+
+  constructor(
+    public alertController: AlertController,
+    private concursosService: ConcursosService    
+    ){         
+
+    }
+
+    ngOnInit(): void {
+      this.concursosService.ultimoSorteio().subscribe((result: any) => {
+        
+        this.bd.data = new Date(result.data).toLocaleDateString('pt-BR',{timeZone:'UTC'});
+        this.bd.jogo = result.bola01+"-"+result.bola02+"-"+result.bola03+"-"+
+                       result.bola04+"-"+result.bola05+"-"+result.bola06;        
+      });
+
+      
+    }
+
+  loadData(event){
+    setTimeout(() => {
+      console.log('Done');
+      this.toplist = [{"valor":10},{"valor":20},{"valor":30},{"valor":40}];
+      event.target.complet();
+
+      if (this.toplist.length == 1000){
+        event.target.disable = true;
+      }
+    },500)
+  }
+  
 
   async templateAlerta(objeto: any){
     var alert = await this.alertController.create({
@@ -30,66 +63,20 @@ export class HomePage {
     alert.present();
   }
 
-  verificarJogoMais(){
-   
-
-    this.frequencia = this.indice = 0;
-    this.freq = [];
-
+  topMais(){ 
     
+    this.concursosService.top10Mais().subscribe((result: Toplistmodel) => {
+      this.toplist = result;
 
-     var jogo = this.objeto.codigo.split("-");
+    });
 
-     jogo.forEach((element: string) => {
-       this.bd.forEach(banco => {
-         if (element == banco){
-            this.frequencia++;
-         }
-       },this);
-       
-       if (this.frequencia != this.indice){
-          this.freq.push(this.frequencia);
-          this.indice = this.frequencia;
-       }
-     },this);
-
-     var chance = (this.freq.length / this.bd.length)*100;
-     
-
-     this.objeto.result = (<string>(chance).toFixed(2)+ "%");
-
-     this.templateAlerta(this.objeto);
+    this.showTopListMais = !this.showTopListMais;
   }
 
   verificarJogoMenos(){
    
 
-    this.frequencia = this.indice = 0;
-    this.freq = [];
-
-    
-
-     var jogo = this.objeto.codigo.split("-");
-
-     jogo.forEach((element: string) => {
-       this.bd.forEach(banco => {
-         if (element != banco){
-            this.frequencia++;
-         }
-       },this);
-       
-       if (this.frequencia != this.indice){
-          this.freq.push(this.frequencia);
-          this.indice = this.frequencia;
-       }
-     },this);
-
-     var chance = (this.freq.length / this.bd.length)*100;
-     
-
-     this.objeto.result = (<string>(chance).toFixed(2)+ "%");
-
-     this.templateAlerta(this.objeto);
+    this.showTopListMenos = !this.showTopListMenos;
   }
 
 }

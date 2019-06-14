@@ -20,3 +20,52 @@ input[type=number] {
   border-radius: 4px;
   color: black;
 }
+
+.header{
+  color: #108015; 
+  text-align: center; 
+  text-shadow: rgb(19, 19, 19) 0px 0px 20px;
+  background-color: white;
+  border-left-width: 50px;
+  margin-left: 35px;
+  margin-right: 35px;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.flex-container{
+  display: flex;
+}
+.flex-column-center{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+
+.flex-wrap-center{
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center
+}
+
+
+.margem-botoes{
+  margin: 25px 0px 0px 0px;
+  display: flex;
+  justify-content: center;  
+}
+
+.margem-compact{
+  --padding-start: 10px;
+  --padding-end: 10px;
+  width: 160px;
+}
+
+.bkg-toplist{
+  border-radius: 5%;width: 100%;text-align: center;padding: 0px 25% 0px 25%;
+  --ion-color-tertiary: !important;
+}
+
+.content-toplist{
+  background-color: #153737;border-radius: 10px;
+}

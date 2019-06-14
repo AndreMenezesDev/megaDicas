@@ -10,50 +10,71 @@
 </ion-header>
 <ion-content class="background">
   <ion-card class="welcome-card">
-    <ion-img src="/assets/shapes.svg"></ion-img>
-    <ion-card-header style="padding-bottom: 0px">
-      <ion-card-title style="color: white;">
-        <h2>
+  <ion-card-header style="padding: 0px 0px 0px 0px;">
+      <!-- <ion-card-title>
+        <h2 class="header">
           Sua chance na MegaSena ficou mais fácil!
         </h2>
-      </ion-card-title>
-      <ion-card-subtitle>
-        <p>Com o MegaDicas você poderá saber se seu jogo tem grandes chances de ser sorteado comparando com todos os
-          outros
-          sorteios anteriores além de outras informações especiais.
+      </ion-card-title> -->
+      <h6>
+        <p class="header">
+          MEGASENA<br>
+          ÚLTIMO SORTEIO REALIZADO
         </p>
-      </ion-card-subtitle>
+      </h6>
     </ion-card-header>
-    <ion-card-content style="color: rgb(200, 240, 154); padding-top: 0px;">
-      <div class="row" style="text-align: center">
+    <ion-card-content style="padding-top: 15px;">
+      <div class="flex-container flex-column-center">
         <ion-label color="primary">
-          <h4>
-            Descubra se tem boas chances<br>colocando seu jogo aqui
-          </h4>
+          {{bd.data}}
         </ion-label>
-        <input name="codigo" mask-number [mask]="'99-99-99-99-99-99'" name="numerosname" [(ngModel)]="objeto.codigo"
-          [maskkOutput]="true" style="color: black" text-center />
+        <input name="codigo" mask-number [mask]="'99-99-99-99-99-99'" name="numerosname" [(ngModel)]="bd.jogo"
+          [maskkOutput]="true" style="color: black" text-center readonly />
       </div>
-
-      <!-- <div style="text-align: center; width: 100%"> -->
-        <div class="row">
-          <div class="col-lg-12">
-          <ion-button color="primary" size="small" class="float-left" (click)="verificarJogoMais()"
-            style="font-size: x-small;width: 130px; float: left;">
-            MegaSena<br>
-            Nº Mais sorteados
-          </ion-button>
-          
-          <ion-button color="primary" size="small" class="float-right" (click)="verificarJogoMenos()"
-            style="font-size: x-small;width: 130px; float: right">
-            MegaSena<br>
-            Nº Menos sorteados
-          </ion-button>
-        </div>
-      </div>
-
-
     </ion-card-content>
+
+    <ion-card class="margem-botoes flex-container flex-wrap-center">
+      <ion-button color="primary" class="margem-compact" size="small" shape="round" style="text-transform: uppercase" (click)="topMais()">
+        Top 10<br>Mais sorteados
+      </ion-button>
+      <ion-button color="primary" class="margem-compact" size="small" shape="round" style="text-transform: uppercase" (click)="verificarJogoMenos()">
+        Top 10<br>Menos sorteados
+      </ion-button>    
+      <ion-button color="primary" class="margem-compact" size="small" shape="round" style="text-transform: uppercase" (click)="verificarDados()">
+        Analisar<br>Jogo
+      </ion-button>   
+      <ion-button color="primary" class="margem-compact" size="small" shape="round" style="text-transform: uppercase" (click)="verificarDados()">
+        Histórico<br>Jogo
+      </ion-button> 
+    </ion-card>  
+      
+      <ion-card class="bkg-toplist" color="tertiary" *ngIf="showTopListMais">
+
+        <ion-card-content class="content-toplist">
+          <ion-card-title>Top 10 Mais</ion-card-title>
+          <ion-list lines="inset" *ngFor="let list of toplist; let i=index">
+            <ion-item  style="text-align: center;" *ngIf="i<10">
+              <ion-label>{{list.bola}}</ion-label>         
+            </ion-item>
+          </ion-list> 
+        </ion-card-content>  
+      </ion-card>
+
+      <ion-card class="bkg-toplist" color="tertiary" *ngIf="showTopListMenos">
+
+        <ion-card-content class="content-toplist">
+          <ion-card-title>Top 10 Menos</ion-card-title>
+          <ion-list lines="inset">
+            <ion-item *ngFor="let list of toplist" style="text-align: center;">
+              <ion-label>{{list.valor}}</ion-label>         
+            </ion-item>
+          </ion-list> 
+        </ion-card-content>  
+      </ion-card>
+    
+
+
+
   </ion-card>
 
 </ion-content>

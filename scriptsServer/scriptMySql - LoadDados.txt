@@ -1,0 +1,1 @@
+LOAD DATA LOCAL INFILE 'C:/wamp/DadosSorteio.csv' INTO TABLE `concursos` FIELDS TERMINATED BY ';' LINES TERMINATED BY '\r\n' (Concurso, @Data, bola1, bola2, bola3, bola4, bola5, bola6) set Data = STR_TO_DATE(@Data, '%d/%m/%Y');
